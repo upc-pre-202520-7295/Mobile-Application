@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "892454872083",
+    "project_id": "betalyze-eaf05",
+    "storage_bucket": "betalyze-eaf05.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:892454872083:android:634ba1db17fe7149cd0be6",
+        "android_client_info": {
+          "package_name": "com.betalyze"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5_0qBY8Agr3WBAOqP-4akx70m3P1MGUw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:892454872083:android:1a68304cccd6b409cd0be6",
+        "android_client_info": {
+          "package_name": "com.betalyze.betalyze"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5_0qBY8Agr3WBAOqP-4akx70m3P1MGUw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:892454872083:android:d6c137836e6bcb4dcd0be6",
+        "android_client_info": {
+          "package_name": "com.example.betalyze_mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5_0qBY8Agr3WBAOqP-4akx70m3P1MGUw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
