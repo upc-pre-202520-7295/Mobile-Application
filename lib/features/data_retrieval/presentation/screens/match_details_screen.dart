@@ -31,8 +31,6 @@ class _MatchDetailsScreenState extends ConsumerState<MatchDetailsScreen> {
       );
     }
 
-    final league = ref.read(matchesProvider.notifier).getMatchLeague(match);
-
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),
 
@@ -95,7 +93,7 @@ class _MatchDetailsScreenState extends ConsumerState<MatchDetailsScreen> {
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: Text(
-                            league,
+                            match.league,
                             style: const TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.w600,
@@ -110,8 +108,8 @@ class _MatchDetailsScreenState extends ConsumerState<MatchDetailsScreen> {
                     const SizedBox(height: 24),
 
                     TeamBadge(
-                      teamName: match.homeTeam.fullname,
-                      initials: _getInitials(match.homeTeam.fullname),
+                      teamName: match.homeTeam.name,
+                      initials: _getInitials(match.homeTeam.name),
                       color: const Color(0xFF6CABDD),
                     ),
                     const SizedBox(height: 8),
@@ -126,15 +124,15 @@ class _MatchDetailsScreenState extends ConsumerState<MatchDetailsScreen> {
                     const SizedBox(height: 24),
 
                     MatchInfoSection(
-                      date: match.startTime,
+                      date: DateTime.parse(match.matchDate),
                       venue: 'Etihad Stadium',
                     ),
 
                     const SizedBox(height: 24),
 
                     TeamBadge(
-                      teamName: match.awayTeam.fullname,
-                      initials: _getInitials(match.awayTeam.fullname),
+                      teamName: match.awayTeam.name,
+                      initials: _getInitials(match.awayTeam.name),
                       color: const Color(0xFFE74C3C),
                     ),
                     const SizedBox(height: 8),

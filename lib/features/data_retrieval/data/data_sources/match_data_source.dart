@@ -1,14 +1,11 @@
 
-import 'package:betalyze_mobile/features/data_retrieval/data/models/match_details_model.dart';
+import 'package:betalyze_mobile/core/errors/failures.dart';
 import 'package:betalyze_mobile/features/data_retrieval/data/models/match_game_model.dart';
 import 'package:dio/dio.dart';
 
 abstract class MatchDataSource {
-  Future<List<MatchGameModel>> getMatches();
-  Future<MatchGameModel> getMatchById(int id);
-  Future<MatchGameModel> getMatchByTeamName(String teamName);
-  Future<MatchDetailsModel> getMatchDetailsByMatchGameId(int matchGameId);
-
+  Future<List<MatchModel>> getMatches();
+  Future<List<MatchModel>> getTodayMatches();
 }
 
 class MatchDataSourceImpl implements MatchDataSource {
@@ -17,30 +14,23 @@ class MatchDataSourceImpl implements MatchDataSource {
   final String baseUrl = String.fromEnvironment('API_BASE_URL');
 
   @override
-  Future<MatchGameModel> getMatchById(int id) async {
-    final resp = await dio.get('$baseUrl/matches/$id');
+  Future<List<MatchModel>> getTodayMatches() async {
+    final resp = await dio.get('$baseUrl/matches/today');
 
-    return MatchGameModel.fromJson(resp.data);
+    if (resp.statusCode != 200) {
+      throw ServerFailure("Error while fetching matches");
+    }
+
+    return (resp.data["data"] as List)
+        .map((e) => MatchModel.fromJson(e))
+        .toList();
   }
 
   @override
-  Future<MatchGameModel> getMatchByTeamName(String teamName) {
-    final resp = dio.get('$baseUrl/matches/team/$teamName');
-    return resp.then((value) => MatchGameModel.fromJson(value.data));
+  Future<List<MatchModel>> getMatches() async {
+    final resp = await dio.get('$baseUrl/matches');
+    return (resp.data["data"] as List)
+        .map((e) => MatchModel.fromJson(e))
+        .toList();
   }
-
-  @override
-  Future<MatchDetailsModel> getMatchDetailsByMatchGameId(int matchGameId) {
-    final resp = dio.get('$baseUrl/match-details/match/$matchGameId');
-    return resp.then((value) => MatchDetailsModel.fromJson(value.data));
-  }
-
-  @override
-  Future<List<MatchGameModel>> getMatches() {
-    final resp = dio.get('$baseUrl/matches');
-    return resp.then((value) => (value.data as List)
-        .map((e) => MatchGameModel.fromJson(e))
-        .toList());
-  }
-
 }

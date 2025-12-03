@@ -1,40 +1,74 @@
-import 'package:betalyze_mobile/features/data_retrieval/data/models/match_details_model.dart';
 import 'package:betalyze_mobile/features/data_retrieval/domain/entities/match_game.dart';
-import 'package:betalyze_mobile/features/favorites/data/models/team_model.dart';
 
-class MatchGameModel extends MatchGame {
+class TeamModel extends Team {
+  const TeamModel({
+    required super.id,
+    required super.name,
+    required super.imgUrl,
+  });
 
-  const MatchGameModel({
+  factory TeamModel.fromJson(Map<String, dynamic> json) => TeamModel(
+    id: json['id'] as int,
+    name: json['name'] as String,
+    imgUrl: json['imgUrl'] as String,
+  );
+
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'name': name,
+    'imgUrl': imgUrl,
+  };
+
+  factory TeamModel.fromEntity(Team team) => TeamModel(
+    id: team.id,
+    name: team.name,
+    imgUrl: team.imgUrl,
+  );
+}
+
+
+class MatchModel extends MatchGame {
+  const MatchModel({
     required super.id,
     required super.homeTeam,
     required super.awayTeam,
-    required super.startTime,
-    required super.matchDetails,
+    required super.league,
+    required super.homeScore,
+    required super.awayScore,
+    required super.matchDate,
+    required super.status,
   });
 
-  factory MatchGameModel.fromJson(Map<String, dynamic> json) => MatchGameModel(
-        id: json['id'] as int,
-        homeTeam: TeamModel.fromJson(json['home_team']),
-        awayTeam: TeamModel.fromJson(json['away_team']),
-        startTime: DateTime.parse(json['start_time'] as String),
-        matchDetails: MatchDetailsModel.fromJson(json['match_details'] as Map<String, dynamic>)
-      );
+  factory MatchModel.fromJson(Map<String, dynamic> json) => MatchModel(
+    id: json['id'] as int,
+    homeTeam: TeamModel.fromJson(json['homeTeam']),
+    awayTeam: TeamModel.fromJson(json['awayTeam']),
+    league: json['league'] as String,
+    homeScore: json['homeScore'] as int,
+    awayScore: json['awayScore'] as int,
+    matchDate: json['matchDate'] as String,
+    status: json['status'] as String,
+  );
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'home_team': (homeTeam as TeamModel).toJson(),
-        'away_team': (awayTeam as TeamModel).toJson(),
-        'start_time': startTime.toIso8601String(),
-        'match_details': (matchDetails as MatchDetailsModel).toJson(),
-      };
+    'id': id,
+    'homeTeam': (homeTeam as TeamModel).toJson(),
+    'awayTeam': (awayTeam as TeamModel).toJson(),
+    'league': league,
+    'homeScore': homeScore,
+    'awayScore': awayScore,
+    'matchDate': matchDate,
+    'status': status,
+  };
 
-  factory MatchGameModel.fromEntity(MatchGame match) => MatchGameModel(
-        id: match.id,
-        homeTeam: TeamModel.fromEntity(match.homeTeam),
-        awayTeam: TeamModel.fromEntity(match.awayTeam),
-        startTime: match.startTime,
-        matchDetails: MatchDetailsModel.fromEntity(match.matchDetails),
-      );
-
+  factory MatchModel.fromEntity(MatchGame match) => MatchModel(
+    id: match.id,
+    homeTeam: TeamModel.fromEntity(match.homeTeam),
+    awayTeam: TeamModel.fromEntity(match.awayTeam),
+    league: match.league,
+    homeScore: match.homeScore,
+    awayScore: match.awayScore,
+    matchDate: match.matchDate,
+    status: match.status,
+  );
 }
-
