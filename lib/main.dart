@@ -1,7 +1,7 @@
 // lib/main.dart
 
 import 'package:betalyze_mobile/core/services/firebase_msg.dart';
-import 'package:betalyze_mobile/features/shared/presentation/screens/main_navigation_screen.dart';
+import 'package:betalyze_mobile/views/main_navigation_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';

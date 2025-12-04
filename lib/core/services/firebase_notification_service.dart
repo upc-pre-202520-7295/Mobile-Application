@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import '../../features/notifications/domain/entities/push_notification.dart';
 import 'notification_service.dart';
 
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -8,9 +7,6 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 class FirebaseNotificationService implements NotificationService {
   final FirebaseMessaging _firebaseMessaging;
-
-  final StreamController<PushNotification> _messageController =
-  StreamController<PushNotification>.broadcast();
 
   FirebaseNotificationService({required FirebaseMessaging firebaseMessaging}) : _firebaseMessaging = firebaseMessaging;
 
@@ -32,14 +28,8 @@ class FirebaseNotificationService implements NotificationService {
     return token ?? '';
   }
 
-  @override
-  Stream<PushNotification> get onMessageReceived => _messageController.stream;
-
   void _handleForegroundMessage(RemoteMessage message) {
   }
   void _handleNotificationTap(RemoteMessage message) {
-  }
-  void dispose() {
-    _messageController.close();
   }
 }
