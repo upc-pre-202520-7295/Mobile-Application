@@ -4,10 +4,16 @@ import '../../domain/Match.dart';
 
 class MatchCard extends StatelessWidget {
   final MatchGame match;
+  Function onPressedHomeStar;
+  Function onPressedAwayStar;
+  Function onDetailsTap;
 
-  const MatchCard({
+  MatchCard({
     super.key,
     required this.match,
+    required this.onPressedHomeStar,
+    required this.onPressedAwayStar,
+    required this.onDetailsTap,
   });
 
   @override
@@ -31,12 +37,43 @@ class MatchCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                 "League: ",
+                  style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF0A1F3D),
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+
+                const SizedBox(width: 8),
+
+                Text(
+                  match.match_info.league,
+                  style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF0A1F3D),
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 8),
             // Header: League + Badges
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 // League Badge
                 Container(
+                  width: 100,
                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(6),
@@ -44,13 +81,16 @@ class MatchCard extends StatelessWidget {
                   child: Image.network(match.home_team_image)
                   ),
 
-                // Row(
-                //   children: [
-                //     ConfidenceBadge(level: valueBet.confidenceLevel),
-                //     const SizedBox(width: 8),
-                //     ValueBadge(percentage: valueBet.valuePercentage),
-                //   ],
-                // ),
+                const SizedBox(width: 8),
+
+                Container(
+                  width: 100,
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Image.network(match.away_team_image)
+                  ),
               ],
             ),
 
@@ -60,16 +100,16 @@ class MatchCard extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: Text(
-                    match.home_team_name,
-                    style: const TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xFF0A1F3D),
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
+                      child: Text(
+                        match.home_team_name,
+                        style: const TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF0A1F3D),
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -100,12 +140,17 @@ class MatchCard extends StatelessWidget {
 
             const SizedBox(height: 10),
 
+            const SizedBox(height: 10),
+
             // Date
-            Text(
-              _formatDate(DateTime.parse(match.match_info.date)),
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.grey[600],
+            Center(
+              child: Text(
+                _formatDate(DateTime.parse(match.match_info.date)),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.grey[600],
+                ),
               ),
             ),
 

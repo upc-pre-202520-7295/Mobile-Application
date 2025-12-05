@@ -5,6 +5,8 @@ import '../domain/FavoriteTeam.dart';
 import 'widgets/favorite_team_card.dart';
 import 'widgets/top_bar.dart' show TopBar;
 
+var mockUserId = "64a4d231-0846-4d96-9dbc-82cd3789ec87";
+
 class FavoritesView extends StatefulWidget {
   const FavoritesView({super.key});
 
@@ -16,16 +18,23 @@ class _FavoritesScreenState extends State<FavoritesView> {
   List<FavoriteTeam> _favoriteTeams = [];
   FavoriteTeamClient client = FavoriteTeamClient();
 
-  @override
-  void initState() {
-    super.initState();
-    client.getFavoriteTeams().then((value) {
+  void _updateFavoriteTeams() {
+
+    var mockUserId = "64a4d231-0846-4d96-9dbc-82cd3789ec87";
+
+    var userId = mockUserId;
+    client.getFavoriteTeams(userId).then((value) {
       setState(() {
         _favoriteTeams = value;
       });
     });
-    // Cargar equipos al iniciar (opcional para simular loading)
-    // Future.microtask(() => ref.read(favoriteTeamsProvider.notifier).loadTeams());
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _updateFavoriteTeams();
   }
 
   @override
@@ -193,18 +202,15 @@ class _FavoritesScreenState extends State<FavoritesView> {
           ),
           TextButton(
             onPressed: () {
-              client.addTeam(teamId).then((value) {
+              var userId = mockUserId;
+              client.addTeam(userId, teamId).then((value) {
                 if (value) {
                   _showSnackBar('$teamName removed from favorites');
                 } else {
                   _showSnackBar('Error removing team from favorites');
                 }
 
-                client.getFavoriteTeams().then((value) {
-                  setState(() {
-                    _favoriteTeams = value;
-                  });
-                });
+                _updateFavoriteTeams();
 
               });
 

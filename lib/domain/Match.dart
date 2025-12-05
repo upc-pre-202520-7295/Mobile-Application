@@ -27,17 +27,15 @@ class PredictionGoals {
 }
 
 class PredictionOverUnder {
-  final double over_1_5;
   final double over_2_5;
-  final double over_3_5;
+  final double under_2_5;
   final String recommendation;
   final String confidence;
   final double confidence_score;
 
   PredictionOverUnder.fromJson(Map<String, dynamic> json)
-      : over_1_5 = json['over_1.5'],
-        over_2_5 = json['over_2.5'],
-        over_3_5 = json['over_3.5'],
+    : over_2_5 = json['over_2_5_probability'],
+        under_2_5 = json['under_2_5_probability'],
         recommendation = json['recommendation'],
         confidence = json['confidence'],
         confidence_score = json['confidence_score'];
@@ -46,14 +44,10 @@ class PredictionOverUnder {
 class PredictionBothTeamsScore {
   final double probability;
   final String recommendation;
-  final String confidence;
-  final double confidence_score;
 
   PredictionBothTeamsScore.fromJson(Map<String, dynamic> json)
       : probability = json['probability'],
-        recommendation = json['recommendation'],
-        confidence = json['confidence'],
-        confidence_score = json['confidence_score'];
+        recommendation = json['recommendation'];
 }
 
 class Predictions {

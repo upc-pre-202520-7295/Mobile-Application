@@ -11,9 +11,10 @@ class FirebaseMsg {
 
     FirebaseMessaging.onBackgroundMessage(handleNotification);
     FirebaseMessaging.onMessage.listen(handleNotification);
-
   }
 
 }
 Future<void >handleNotification(RemoteMessage msg) async{
+  print("[+] Message from: ${msg.notification?.title}");
+  print("[+] Message body: ${msg.notification?.body}");
 }

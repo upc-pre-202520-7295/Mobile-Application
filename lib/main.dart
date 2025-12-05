@@ -5,18 +5,20 @@ import 'package:betalyze_mobile/views/main_navigation_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'features/notifications/presentation/providers/notification_provider.dart';
 import 'firebase_options.dart';
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
+Future<void> firebaseConfig() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
   await FirebaseMsg().initFCM();
+}
 
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  firebaseConfig();
 
   runApp(
     const ProviderScope(
@@ -36,9 +38,6 @@ class _MyAppState extends ConsumerState<MyApp> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(notificationProvider);
-    });
   }
 
   @override
